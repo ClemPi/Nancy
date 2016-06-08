@@ -1,14 +1,38 @@
+using System;
+
 namespace Nancy.Demo.Hosting.Self
 {
     using System.Linq;
     using Nancy.Demo.Hosting.Self.Models;
+
+    public class Id
+    {
+        public Guid Guid { get; set; }
+        public Id ()
+        {
+            Toto = "secret";
+        }
+        public Id(Guid guid)
+        {
+            Guid = guid;
+            Toto = "secret";
+        }
+
+        public String Toto { get; set; }
+
+        public override string ToString()
+        {
+            return Guid.ToString ();
+        }
+    }
 
     public class TestModule : NancyModule
     {
         public TestModule()
         {
             Get("/", args => {
-                return View["staticview", this.Request.Url];
+                Console.WriteLine ("WoW-X");
+                throw new Exception("WoW");
             });
 
             Get("/testing", args =>
